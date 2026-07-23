@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { api } from "@/lib/axios";
 import { LoginFormData, RegisterFormData } from "@/app/schemas/auth.schema";
 import { AxiosError } from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface AuthResponse {
   id: number;
@@ -29,6 +29,7 @@ interface ApiErrorResponse {
   message: string;
 }
 export const useLogin = () => {
+  const router = useRouter();
   return useMutation<AuthResponse, AxiosError<ApiErrorResponse>, LoginFormData>(
     {
       mutationFn: async (data: LoginFormData) => {
@@ -42,15 +43,21 @@ export const useLogin = () => {
 
       onSuccess: (data) => {
         Cookies.set("token", data.accessToken, { expires: 1, path: "/" });
-
         Cookies.set("user", JSON.stringify(data), { expires: 1, path: "/" });
+
+        router.push("/dashboard");
+        router.refresh();
       },
     },
   );
 };
 
 export const useRegister = () => {
-  return useMutation<RegisterResponse, AxiosError<ApiErrorResponse>, RegisterFormData>({
+  return useMutation<
+    RegisterResponse,
+    AxiosError<ApiErrorResponse>,
+    RegisterFormData
+  >({
     mutationFn: async (data: RegisterFormData) => {
       const response = await api.post<RegisterResponse>("/users/add", {
         username: data.username,
@@ -63,13 +70,13 @@ export const useRegister = () => {
 };
 
 export const useLogout = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    const logout = () => {
+  const logout = () => {
     Cookies.remove("token", { path: "/" });
     Cookies.remove("user", { path: "/" });
     router.push("/login");
   };
 
   return { logout };
-}
+};
