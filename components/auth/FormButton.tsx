@@ -1,25 +1,23 @@
-// components/auth/FormButton.tsx
 "use client";
 
 import { Button } from "@/components/ui/button";
 
-type FormButtonProps = {
+interface FormButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   isLoading?: boolean;
   loadingText?: string;
-};
+}
 
 export default function FormButton({
   children,
   isLoading = false,
   loadingText = "Please wait...",
+  type = "submit",
+  className = "w-full bg-blue-600 hover:bg-blue-700 text-white",
+  ...props
 }: FormButtonProps) {
   return (
-    <Button
-      type="submit"
-      disabled={isLoading}
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-    >
+    <Button type={type} disabled={isLoading} className={className} {...props}>
       {isLoading ? loadingText : children}
     </Button>
   );
