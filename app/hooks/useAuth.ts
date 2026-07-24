@@ -1,4 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { api } from "@/lib/axios";
 import { LoginFormData, RegisterFormData } from "@/app/schemas/auth.schema";
@@ -71,11 +75,16 @@ export const useRegister = () => {
 
 export const useLogout = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const logout = () => {
     Cookies.remove("token", { path: "/" });
     Cookies.remove("user", { path: "/" });
+
+    queryClient.clear();
+
     router.push("/login");
+    router.refresh();
   };
 
   return { logout };

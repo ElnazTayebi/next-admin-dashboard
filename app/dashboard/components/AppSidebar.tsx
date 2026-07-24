@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard, LogOut } from "lucide-react";
+import { LayoutDashboard, LogOut, Users } from "lucide-react";
 import FormButton from "@/components/auth/FormButton";
 import {
   Sidebar,
@@ -14,20 +14,34 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
 
 interface AppSidebarProps {
   onLogout: () => void;
 }
 
 export function AppSidebar({ onLogout }: AppSidebarProps) {
+    const pathname = usePathname();
+    const navItems = [
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      title: "Users",
+      href: "/dashboard/users",
+      icon: Users,
+    },
+  ];
   return (
-    <Sidebar>
-      <SidebarHeader className="p-4 border-b">
+  <Sidebar>
+      <SidebarHeader className="border-b p-4">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-bold">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">
             A
           </div>
-          <span className="font-bold text-lg">Admin Panel</span>
+          <span className="text-lg font-bold">Admin Panel</span>
         </div>
       </SidebarHeader>
 
@@ -35,27 +49,34 @@ export function AppSidebar({ onLogout }: AppSidebarProps) {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive>
-                  <Link href="/dashboard">
-                    <LayoutDashboard className="w-4 h-4" />
-                    <span>Dashboard</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.href}>
+                        <Icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4 border-t">
+      <SidebarFooter className="border-t p-4">
         <FormButton
           type="button"
           variant="ghost"
           onClick={onLogout}
-          className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 gap-2 bg-transparent"
+          className="w-full justify-start gap-2 bg-transparent text-destructive hover:bg-destructive/10 hover:text-destructive"
         >
-          <LogOut className="w-4 h-4" />
+          <LogOut className="h-4 w-4" />
           Logout
         </FormButton>
       </SidebarFooter>
