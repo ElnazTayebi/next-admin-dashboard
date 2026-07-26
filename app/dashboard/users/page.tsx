@@ -1,9 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { fetchUsers } from "@/lib/api/users";
+import { useState } from "react";
+import { useUsers } from "@/hooks/useUsers";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button"; // ۱. ایمپورت صحیح Button از Shadcn
 import {
   Table,
   TableBody,
@@ -12,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import FormButton from "@/components/auth/FormButton";
 
 interface User {
   id: number;
@@ -25,12 +27,12 @@ interface User {
   };
 }
 
+const LIMIT = 10;
 
 export default function UsersPage() {
-  const { data: users, isLoading, isError } = useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
-  });
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError, isFetching } = useUsers(page, LIMIT);
+  const totalPages = data ? Math.ceil(data.total / LIMIT) : 0;
 
   if (isLoading) {
     return (
@@ -57,6 +59,7 @@ export default function UsersPage() {
         </p>
       </div>
 
+      
       <div className="rounded-md border bg-card">
         <Table>
           <TableHeader>
@@ -67,7 +70,7 @@ export default function UsersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users?.map((user: User) => (
+            {data?.users?.map((user: User) => (
               <TableRow key={user.id}>
                 <TableCell className="flex items-center gap-3 font-medium">
                   <Avatar className="h-8 w-8">
@@ -83,13 +86,45 @@ export default function UsersPage() {
                 </TableCell>
                 <TableCell>
                   <Badge variant="secondary" className="capitalize">
-                    {user.role} - {user.company?.title}
+                    {user.role}{" "}
+                    {user.company?.title ? `- ${user.company.title}` : ""}
                   </Badge>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+
+        <div className="flex items-center justify-between border-t p-4">
+          <div className="text-sm text-muted-foreground">
+            Page {page} of {totalPages || 1}
+            {isFetching && (
+              <span className="ml-2 text-xs text-primary animate-pulse">
+                (Updating...)
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <FormButton
+              variant="outline"
+              size="sm"
+              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+              disabled={page === 1 || isFetching}
+            >
+              Previous
+            </FormButton>
+
+            <FormButton
+              variant="outline"
+              size="sm"
+              onClick={() => setPage((prev) => prev + 1)}
+              disabled={page >= totalPages || isFetching}
+            >
+              Next
+            </FormButton>
+          </div>
+        </div>
       </div>
     </div>
   );
