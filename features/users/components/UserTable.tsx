@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -14,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import { useUsers } from "../api/useUsers";
 import FormButton from "@/features/auth/components/FormButton";
-
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 interface User {
   id: number;
@@ -31,9 +29,17 @@ interface User {
 const LIMIT = 10;
 
 export default function UsersTable() {
-  const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const page = Number(searchParams.get("page")) || 1;
   const { data, isLoading, isError, isFetching } = useUsers(page, LIMIT);
   const totalPages = data ? Math.ceil(data.total / LIMIT) : 0;
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", newPage.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  }
 
   if (isLoading) {
     return (
@@ -60,7 +66,6 @@ export default function UsersTable() {
         </p>
       </div>
 
-      
       <div className="rounded-md border bg-card">
         <Table>
           <TableHeader>
@@ -110,7 +115,7 @@ export default function UsersTable() {
             <FormButton
               variant="outline"
               size="sm"
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+              onClick={() => handlePageChange(page - 1)}
               disabled={page === 1 || isFetching}
             >
               Previous
@@ -119,7 +124,7 @@ export default function UsersTable() {
             <FormButton
               variant="outline"
               size="sm"
-              onClick={() => setPage((prev) => prev + 1)}
+              onClick={() => handlePageChange( page + 1)}
               disabled={page >= totalPages || isFetching}
             >
               Next
