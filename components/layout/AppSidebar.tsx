@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { LayoutDashboard, LogOut, Users } from "lucide-react";
-import FormButton from "@/components/auth/FormButton";
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +14,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import FormButton from "@/features/auth/components/FormButton";
 
 interface AppSidebarProps {
   onLogout: () => void;

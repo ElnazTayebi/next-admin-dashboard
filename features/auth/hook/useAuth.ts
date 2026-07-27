@@ -3,10 +3,10 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { api } from "@/lib/axios";
-import { LoginFormData, RegisterFormData } from "@/app/schemas/auth.schema";
+import { api } from "@/lib/api/axios";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { LoginFormData, RegisterFormData } from "../schemas/auth.schema";
 
 interface AuthResponse {
   id: number;

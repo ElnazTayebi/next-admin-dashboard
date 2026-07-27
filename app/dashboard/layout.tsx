@@ -2,9 +2,9 @@
 
 import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { useLogout } from "@/app/hooks/useAuth";
-import { AppSidebar } from "./components/AppSidebar";
-import Header from "./components/Header";
+import { useLogout } from "@/features/auth/hook/useAuth";
+import { AppSidebar } from "@/components/layout/AppSidebar";
+import Header from "@/components/layout/Header";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { logout } = useLogout();

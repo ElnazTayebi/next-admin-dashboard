@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
@@ -16,4 +14,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default(nextConfig);

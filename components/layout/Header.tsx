@@ -2,7 +2,6 @@
 
 import { useSyncExternalStore } from "react";
 import Cookies from "js-cookie";
-import { useLogout } from "@/app/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
+import { useLogout } from "@/features/auth/hook/useAuth";
 
 interface UserData {
   firstName: string;

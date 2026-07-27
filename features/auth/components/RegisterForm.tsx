@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, type RegisterFormData } from "@/app/schemas/auth.schema";
-import { useRegister } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import AuthCard from "./AuthCard";
 import InputField from "./InputField";
 import FormButton from "./FormButton";
+import { useRegister } from "../hook/useAuth";
+import { RegisterFormData, registerSchema } from "../schemas/auth.schema";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -77,7 +77,7 @@ export default function RegisterForm() {
           hasToggle
         />
 
-        <FormButton isLoading={isPending} loadingText="Creating account...">
+        <FormButton isLoading={isPending} type="submit" loadingText="Creating account...">
           Sign Up
         </FormButton>
 

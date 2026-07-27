@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, type LoginFormData } from "@/app/schemas/auth.schema"; 
-import { useLogin } from "@/app/hooks/useAuth";
 import AuthCard from "./AuthCard";
 import InputField from "./InputField";
 import FormButton from "./FormButton";
+import { LoginFormData, loginSchema } from "../schemas/auth.schema";
+import { useLogin } from "../hook/useAuth";
 
 
 export default function LoginForm() {
@@ -50,7 +50,7 @@ export default function LoginForm() {
           hasToggle
         />
 
-        <FormButton isLoading={isPending} loadingText="Signing in...">
+        <FormButton isLoading={isPending} type="submit" loadingText="Signing in...">
           Sign In
         </FormButton>
 
