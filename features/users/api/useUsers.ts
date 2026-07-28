@@ -1,12 +1,12 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getUsers } from "./getUsers";
 
-export function useUsers(page: number = 1, limit: number = 10) {
+export function useUsers(page: number = 1, limit: number = 10, q: string = "") {
   const skip = (page - 1) * limit;
 
   return useQuery({
-    queryKey: ["users", page, limit],
-    queryFn: () => getUsers({ limit, skip }),
+    queryKey: ["users", page, limit, q],
+    queryFn: () => getUsers({ limit, skip, q }),
     placeholderData: keepPreviousData, 
   });
 }

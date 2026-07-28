@@ -13,6 +13,7 @@ import {
 import { useUsers } from "../api/useUsers";
 import FormButton from "@/features/auth/components/FormButton";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import UserSearch from "./UserSearch";
 
 interface User {
   id: number;
@@ -32,14 +33,17 @@ export default function UsersTable() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
   const page = Number(searchParams.get("page")) || 1;
-  const { data, isLoading, isError, isFetching } = useUsers(page, LIMIT);
+  const q = searchParams.get("q") || "";
+
+  const { data, isLoading, isError, isFetching } = useUsers(page, LIMIT, q);
   const totalPages = data ? Math.ceil(data.total / LIMIT) : 0;
   const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams.toString())
+    const params = new URLSearchParams(searchParams.toString());
     params.set("page", newPage.toString());
     router.push(`${pathname}?${params.toString()}`);
-  }
+  };
 
   if (isLoading) {
     return (
@@ -59,11 +63,13 @@ export default function UsersTable() {
 
   return (
     <div className="space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
-        <p className="text-sm text-muted-foreground">
-          List of users retrieved from DummyJSON
-        </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
+          <p className="text-sm text-muted-foreground">
+            List of users retrieved from DummyJSON
+          </p>
+        </div>
       </div>
 
       <div className="rounded-md border bg-card">
@@ -124,7 +130,7 @@ export default function UsersTable() {
             <FormButton
               variant="outline"
               size="sm"
-              onClick={() => handlePageChange( page + 1)}
+              onClick={() => handlePageChange(page + 1)}
               disabled={page >= totalPages || isFetching}
             >
               Next
