@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import FormButton from "@/features/auth/components/FormButton";
+import { ThemeToggle } from "@/features/theme/ThemeToggle";
 
 interface AppSidebarProps {
   onLogout: () => void;
@@ -64,6 +65,7 @@ export function AppSidebar({ onLogout }: AppSidebarProps) {
                   </SidebarMenuItem>
                 );
               })}
+                
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -76,6 +78,7 @@ export function AppSidebar({ onLogout }: AppSidebarProps) {
           onClick={onLogout}
           className="w-full justify-start gap-2 bg-transparent text-destructive hover:bg-destructive/10 hover:text-destructive"
         >
+       
           <LogOut className="h-4 w-4" />
           Logout
         </FormButton>

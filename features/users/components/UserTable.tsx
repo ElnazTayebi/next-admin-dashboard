@@ -13,7 +13,7 @@ import {
 import { useUsers } from "../api/useUsers";
 import FormButton from "@/features/auth/components/FormButton";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import UserSearch from "./UserSearch";
+/* import UserSearch from "./UserSearch"; */
 
 interface User {
   id: number;
@@ -63,14 +63,14 @@ export default function UsersTable() {
 
   return (
     <div className="space-y-6 p-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+     {/*  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
           <p className="text-sm text-muted-foreground">
             List of users retrieved from DummyJSON
           </p>
         </div>
-      </div>
+      </div> */}
 
       <div className="rounded-md border bg-card">
         <Table>

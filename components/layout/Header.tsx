@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { useLogout } from "@/features/auth/hook/useAuth";
+import { ThemeToggle } from "@/features/theme/ThemeToggle";
 
 interface UserData {
   firstName: string;
@@ -61,7 +62,9 @@ export default function Header() {
 
   return (
     <header className="flex h-16 w-full items-center justify-between border-b bg-background px-6">
-      <h1 className="text-base font-semibold text-foreground">Admin Dashboard</h1>
+      <h1 className="text-base font-semibold text-foreground">
+        Admin Dashboard
+      </h1>
 
       {user ? (
         <DropdownMenu>
@@ -81,7 +84,9 @@ export default function Header() {
                 <span className="font-semibold leading-tight text-foreground">
                   {user.firstName} {user.lastName}
                 </span>
-                <span className="text-muted-foreground text-xs">@{user.username}</span>
+                <span className="text-muted-foreground text-xs">
+                  @{user.username}
+                </span>
               </div>
             </Button>
           </DropdownMenuTrigger>
@@ -97,6 +102,12 @@ export default function Header() {
                 </p>
               </div>
             </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+
+            <div className="flex items-center justify-between px-2 py-1.5 text-sm">
+              <span className="text-muted-foreground">Theme</span>
+              <ThemeToggle />
+            </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={logout}

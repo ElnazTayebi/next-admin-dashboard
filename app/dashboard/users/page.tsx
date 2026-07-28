@@ -1,5 +1,6 @@
 // app/dashboard/users/page.tsx
 
+import { ThemeToggle } from "@/features/theme/ThemeToggle";
 import UserSearch from "@/features/users/components/UserSearch";
 import UsersTable from "@/features/users/components/UserTable";
 import { Suspense } from "react";
@@ -15,6 +16,7 @@ export default function UsersPage() {
       </div>
       <Suspense fallback={<div>Loading users...</div>}>
         <UsersTable />
+        
       </Suspense>
     </div>
   );
