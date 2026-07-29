@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import FormButton from "@/features/auth/components/FormButton";
+import FormButton from "@/components/FormButton";
 
 const subscribe = () => () => {};
 const getSnapshot = () => true;

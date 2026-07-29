@@ -14,8 +14,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import FormButton from "@/features/auth/components/FormButton";
-import { ThemeToggle } from "@/features/theme/ThemeToggle";
+import FormButton from "@/components/FormButton";
 
 interface AppSidebarProps {
   onLogout: () => void;

@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import AuthCard from "./AuthCard";
-import InputField from "./InputField";
-import FormButton from "./FormButton";
-import { useRegister } from "../hook/useAuth";
+import InputField from "../../../components/InputField";
+import FormButton from "../../../components/FormButton";
 import { RegisterFormData, registerSchema } from "../schemas/auth.schema";
+import { useRegister } from "../api/useRegister";
 
 export default function RegisterForm() {
   const router = useRouter();

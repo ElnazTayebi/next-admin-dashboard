@@ -13,8 +13,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
-import { useLogout } from "@/features/auth/hook/useAuth";
-import { ThemeToggle } from "@/features/theme/ThemeToggle";
+/* import { useLogout } from "@/features/auth/hook/useAuth"; */
+import { ThemeToggle } from "../ThemeToggle";
+import { useLogout } from "@/features/auth";
+/* import { ThemeToggle } from "@/features/theme/ThemeToggle"; */
 
 interface UserData {
   firstName: string;

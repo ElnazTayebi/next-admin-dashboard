@@ -11,21 +11,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useUsers } from "../api/useUsers";
-import FormButton from "@/features/auth/components/FormButton";
+import FormButton from "@/components/FormButton";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-/* import UserSearch from "./UserSearch"; */
+import { User } from "../types";
 
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-  image: string;
-  company?: {
-    title: string;
-  };
-}
+
 
 const LIMIT = 10;
 
@@ -63,14 +53,6 @@ export default function UsersTable() {
 
   return (
     <div className="space-y-6 p-6">
-     {/*  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
-          <p className="text-sm text-muted-foreground">
-            List of users retrieved from DummyJSON
-          </p>
-        </div>
-      </div> */}
 
       <div className="rounded-md border bg-card">
         <Table>

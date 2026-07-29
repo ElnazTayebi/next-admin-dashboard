@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthCard from "./AuthCard";
-import InputField from "./InputField";
-import FormButton from "./FormButton";
+import InputField from "@/components/InputField";
+import FormButton from "@/components/FormButton";
 import { LoginFormData, loginSchema } from "../schemas/auth.schema";
-import { useLogin } from "../hook/useAuth";
+import { useLogin } from "../api/useLogin";
 
 
 export default function LoginForm() {
